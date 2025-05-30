@@ -20,36 +20,40 @@ class PlanResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\RichEditor::make('description')
-                    ->label('Plan Description')
-                    ->toolbarButtons([
-                        'bold', 'italic', 'underline', 'strike',
-                        'bulletList', 'orderedList',
-                        'blockquote', 'link', 'undo', 'redo'
+                Forms\Components\Section::make('Plan Info')->schema([
+                    Forms\Components\TextInput::make('name')->required(),
+                    Forms\Components\TextInput::make('initial_fee')->numeric()->label('Initial Fee'),
+                    Forms\Components\TextInput::make('discount')->numeric()->label('Discount'),
+                    Forms\Components\RichEditor::make('description')
+                        ->label('Plan Description')
+                        ->toolbarButtons([
+                            'bold', 'italic', 'underline', 'strike',
+                            'bulletList', 'orderedList',
+                            'blockquote', 'link', 'undo', 'redo'
+                        ])
+                        ->columnSpanFull()
+                        ->maxLength(2000),
+                ])->columns(3),
+                Forms\Components\Section::make('Billing Options')->schema([
+                    Forms\Components\HasManyRepeater::make('prices')
+                        ->relationship('prices')
+                        ->schema([
+                            Forms\Components\Select::make('billing_type')
+                                ->options([
+                                    'monthly' => 'Monthly',
+                                    'quarterly' => 'Quarterly',
+                                    'bi_monthly' => 'Bi-Monthly',
+                                    'per_service' => 'Per Service',
+                                ])
+                                ->required()
+                                ->distinct()->columnSpanFull(),
+                            Forms\Components\TextInput::make('amount')
+                                ->numeric()
+                                ->required()->columnSpanFull()
+                        ])
+                        ->grid(3)
                     ])
-                    ->columnSpanFull()
-                    ->maxLength(2000),
-                Forms\Components\TextInput::make('initial_fee')->numeric()->label('Initial Fee'),
-                Forms\Components\TextInput::make('discount')->numeric()->label('Discount'),
-                Forms\Components\HasManyRepeater::make('prices')
-                    ->relationship('prices')
-                    ->schema([
-                        Forms\Components\Select::make('billing_type')
-                            ->options([
-                                'monthly' => 'Monthly',
-                                'quarterly' => 'Quarterly',
-                                'bi_monthly' => 'Bi-Monthly',
-                                'per_service' => 'Per Service',
-                            ])
-                            ->required()
-                            ->distinct(),
-                        Forms\Components\TextInput::make('amount')
-                            ->numeric()
-                            ->required(),
-                    ])
-                    ->label('Billing Options'),
-            ]);
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
