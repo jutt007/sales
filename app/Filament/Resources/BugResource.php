@@ -40,14 +40,9 @@ class BugResource extends Resource
             ])
             ->defaultSort('id', 'desc')
             ->filters([
-                Tables\Filters\TernaryFilter::make('status')
-                    ->label('Status')
-                    ->trueLabel('Active')
-                    ->falseLabel('Inactive')
-                    ->queries(
-                        true: fn (Builder $query) => $query->where('status', true),
-                        false: fn (Builder $query) => $query->where('status', false),
-                    )
+                Tables\Filters\Filter::make('status')
+                    ->label('Is Outdoor')
+                    ->query(fn (Builder $query): Builder => $query->where('status', true))
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
