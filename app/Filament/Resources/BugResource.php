@@ -16,7 +16,7 @@ class BugResource extends Resource
 {
     protected static ?string $model = Bug::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'bi-bug';
 
     public static function form(Form $form): Form
     {

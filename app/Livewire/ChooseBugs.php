@@ -3,19 +3,27 @@
 namespace App\Livewire;
 
 use App\Models\Bug;
+use App\Models\Lead;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cookie;
 use Livewire\Component;
 
-class ChooseBugs extends Component
+class ChooseBugs extends BaseComponent
 {
-
     public Collection $bugs;
     public array $selectedBugs = [];
-    public string $identifier;
+
+    public function mount()
+    {
+        $this->bugs = Bug::query()->get();
+        $this->loadLead(false);
+        if ($this->lead) {
+            $this->selectedBugs = $this->lead->selected_bugs ?? [];
+        }
+    }
 
     public function render()
     {
-        $this->bugs = Bug::query()->get();
         return view('livewire.choose-bugs');
     }
 
@@ -30,6 +38,15 @@ class ChooseBugs extends Component
 
     public function storeBugs()
     {
+        Lead::query()->updateOrCreate(
+            ['identifier' => $this->identifier],
+            [
+                'identifier' => $this->identifier,
+                'selected_bugs' => $this->selectedBugs
+            ]
+        );
+
+        Cookie::queue('guest_identifier', $this->identifier, 60 * 24 * 30);
         return $this->redirect('/address', true);
     }
 }

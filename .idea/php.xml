@@ -139,6 +139,7 @@
       <path value="$PROJECT_DIR$/vendor/blade-ui-kit/blade-heroicons" />
       <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/vendor/blade-ui-kit/blade-icons" />
+      <path value="$PROJECT_DIR$/vendor/davidhsianturi/blade-bootstrap-icons" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
