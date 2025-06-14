@@ -11,3 +11,6 @@ Route::get('/address', function (){
 Route::get('/user-info', function (){
     return view('pages.user-info');
 });
+Route::get('/plans', function (){
+    return view('pages.plans');
+});

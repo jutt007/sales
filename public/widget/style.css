@@ -639,6 +639,9 @@ body {
     color: #01BDA5;
     margin: 65px 0 35px;
   }
+  .plans-tab-main{
+    display: none;
+  }
 
   /* Responsive  */
   @media screen and (min-width: 1050px) and (max-width: 1550px) {
@@ -898,8 +901,8 @@ body {
    .plan-perks { 
     font-size: 14px; 
   }
-  .plan-perks span { 
-    width: 40px;
+  .plan-perks-main {
+    padding: 0 30px;
   }
   .checkout-main h4 { 
     font-size: 24px; 
@@ -933,6 +936,54 @@ body {
   .sign-agreement h4 { 
     font-size: 26px; 
   }
+  .plans-tab-main{
+    display: flex;
+    justify-content: space-between;
+    max-width: 645px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, #01BDA5 0%, #374855 79.33%);
+    border-radius: 50px;
+    padding: 6px 12px;
+  }
+  .compare-plan { 
+    width: 100%; 
+    max-width: 588px;
+    margin: 0 auto;
+  }
+  .tab-btn{
+    color: #fff;
+    font-size: 22px;
+    font-weight: 300;
+    border: none;
+    background-color: transparent;
+    border-radius: 50px;
+    padding: 7px 15px;
+    transition: 0.5s;
+  }
+  .tab-btn.active{
+    color: #000000;
+    background-color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .compare-plan{
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .compare-plan.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .termite-right { 
+    padding: 35px 30px; 
+  }
+  .termite-right ol { 
+    font-size: 20px;  
+  }
+
 }
 
 @media screen and (max-width: 767px) {
@@ -1170,5 +1221,100 @@ body {
   }
   br{
     display: none;
+  }
+  .plans-tab-main{
+    display: flex;
+    justify-content: space-between;
+    max-width: 645px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, #01BDA5 0%, #374855 79.33%);
+    border-radius: 50px;
+    padding: 6px 12px;
+  }
+  .compare-plans-main {
+    margin: 15px 0 0;
+  }
+  .compare-plans-main h3{
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .compare-plan { 
+    width: 100%; 
+    max-width: 318px;
+    margin: 0 auto;
+  }
+  .compare-plan-options { 
+    margin: 18px auto 0;
+  }
+  .plan-perks-main {
+    margin-top: 10px;
+  }
+  .plan-perks span {
+    width: 40px;  
+  }
+  .plan-perks { 
+    margin-bottom: 5px;
+    min-height: 30px; 
+    font-size: 12px; 
+  }
+  .termite-right ol{
+    list-style-image: url(images/small-tick.png);
+    padding-left: 17px;
+  }
+  .tab-btn{
+    color: #fff;
+    font-size: 10px;
+    font-weight: 300;
+    border: none;
+    background-color: transparent;
+    border-radius: 50px;
+    padding: 7px 6px;
+    transition: 0.5s;
+  }
+  .tab-btn.active{
+    color: #000000;
+    background-color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .compare-plan{
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    padding: 15px 15px;
+  }
+  .compare-plan.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .price-mm-yy .price {
+    font-size: 24px; 
+  }
+  .termite-left { 
+    padding: 30px 6px 10px; 
+    font-size: 10px;
+    font-weight: 400;
+  }
+  .termite-left svg{
+    width: 55px;
+    height: 40px;
+  }
+  .termite-left h3 { 
+    font-size: 13px; 
+    margin: 10px 0 15px;
+  }
+  .termite-right { 
+    padding: 20px 10px 12px;
+    text-align: left;
+    font-size: 12px; 
+  }
+  .termite-right h3 {
+    font-size: 15px; 
+  }
+  .termite-right ol { 
+    font-size: 9px; 
+    margin-top: 15px;
   }
 }

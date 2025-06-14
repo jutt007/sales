@@ -10,13 +10,13 @@
 
                 <form action="">
                     <div class="location-form discount-plan-main">
+                        @if($discount > 0)
                         <div class="get-discount-plan">
-                            <h3>Get $200 OFF</h3>
-                            <span>Discount is applied at checkout!</span>
-
+                            <h3>Get ${{ $discount }} OFF</h3>
+                            <span>Discount is based on selected plan!</span>
                             <h4>Plans & pricing are next..</h4>
-
                         </div>
+                        @endif
                         <div class="row m-0">
                             <div class="col-md-12">
                                 <!-- Left Column -->
@@ -32,7 +32,7 @@
                                     </div>
 
                                     <div class="form-floating mb-4">
-                                        <input type="text" class="form-control" id="Email" wire:model="Email" placeholder="Email">
+                                        <input type="text" class="form-control" id="Email" wire:model="email" placeholder="Email">
                                         <label for="Email">Email</label>
                                     </div>
 
@@ -64,8 +64,8 @@
 
 
                     <div class="btn-main mt-5">
-                        <button type="button" class="btn-site btn-invert me-3 me-sm-5" wire:navigate href="/address">Back</button>
-                        <button type="button" class="btn-site">Next</button>
+                        <a type="button" class="btn-site btn-invert me-3 me-sm-5"  href="/address">Back</a>
+                        <button type="button" class="btn-site" wire:click="storeUserInfo">Next</button>
                     </div>
                 </form>
 
@@ -75,6 +75,8 @@
                 <span></span>
                 <span></span>
                 <span class="active"></span>
+                <span></span>
+                <span></span>
                 <span></span>
                 <span></span>
             </div>

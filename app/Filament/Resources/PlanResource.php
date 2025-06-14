@@ -24,6 +24,13 @@ class PlanResource extends Resource
                     Forms\Components\TextInput::make('name')->required(),
                     Forms\Components\TextInput::make('initial_fee')->numeric()->label('Initial Fee'),
                     Forms\Components\TextInput::make('discount')->numeric()->label('Discount'),
+                    Forms\Components\Select::make('type')
+                        ->options([
+                            'Outdoor' => 'Outdoor',
+                            'General' => 'General',
+                            'Hybrid' => 'Hybrid'
+                        ])
+                        ->required(),
                     Forms\Components\RichEditor::make('description')
                         ->label('Plan Description')
                         ->toolbarButtons([
@@ -33,7 +40,7 @@ class PlanResource extends Resource
                         ])
                         ->columnSpanFull()
                         ->maxLength(2000),
-                ])->columns(3),
+                ])->columns(4),
                 Forms\Components\Section::make('Billing Options')->schema([
                     Forms\Components\HasManyRepeater::make('prices')
                         ->relationship('prices')
@@ -63,6 +70,7 @@ class PlanResource extends Resource
                 Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('initial_fee')->label('Initial Fee')->money(),
                 Tables\Columns\TextColumn::make('discount')->label('Discount'),
+                Tables\Columns\TextColumn::make('type')->label('Type'),
                 Tables\Columns\TextColumn::make('prices')->label('Billing Options')->formatStateUsing(function ($record){
                     return $record->prices->map(function ($price) {
                         $label = ucfirst(str_replace('_', ' ', $price->billing_type));
