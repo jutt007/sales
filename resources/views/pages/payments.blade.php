@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'User Info')
+@section('title', 'Payment')
 
 @section('content')
-    @livewire('user-info')
+    @livewire('payment')
 @endsection

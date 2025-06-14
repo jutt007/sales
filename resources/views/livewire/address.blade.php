@@ -15,8 +15,8 @@
                                 <!-- Right Column -->
                                 <div class="form-right">
                                     <div class="map">
-                                        <!-- Replace with actual map embed or image -->
-                                        <iframe src="https://www.google.com/maps/embed/v1/view?key={{ config('services.maps.key') }}&center={{ $latitude }},{{ $longitude }}&zoom=12&maptype=roadmap" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="map"></iframe>
+                                        <div id="map" wire:ignore style="height: 400px; width: 100%;"></div>
+{{--                                        <iframe src="https://www.google.com/maps/embed/v1/view?key={{ config('services.maps.key') }}&center={{ $latitude }},{{ $longitude }}&zoom=12&maptype=roadmap" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="map"></iframe>--}}
                                     </div>
 {{--                                    <p class="sqft">3,447 sqft</p>--}}
                                 </div>
@@ -72,4 +72,55 @@
             </div>
         </div>
     </div>
+    <!-- Google Maps JavaScript API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.maps.key') }}&libraries=places"></script>
+    <script>
+        let map;
+        let marker;
+        let autocomplete;
+
+        function initMap() {
+            const defaultLocation = { lat: {{ $latitude }}, lng: {{ $longitude }} };
+
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultLocation,
+                zoom: 20,
+            });
+
+            marker = new google.maps.Marker({
+                map: map,
+                position: defaultLocation,
+                draggable: false,
+            });
+
+            // Autocomplete
+            const input = document.getElementById("address");
+            autocomplete = new google.maps.places.Autocomplete(input);
+            autocomplete.setFields(["geometry", "formatted_address"]);
+
+            autocomplete.addListener("place_changed", function () {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+
+                const newLocation = place.geometry.location;
+
+                map.setCenter(newLocation);
+                map.setZoom(20);
+                marker.setPosition(newLocation);
+
+                const lat = newLocation.lat();
+                const lng = newLocation.lng();
+
+                window.dispatchEvent(new CustomEvent('saveAddress', {
+                    detail: [place.formatted_address,lat, lng]
+                }));
+            });
+        }
+
+        window.initMap = initMap;
+        window.addEventListener('load', initMap);
+    </script>
 </div>

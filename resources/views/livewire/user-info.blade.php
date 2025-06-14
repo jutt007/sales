@@ -64,7 +64,7 @@
 
 
                     <div class="btn-main mt-5">
-                        <a type="button" class="btn-site btn-invert me-3 me-sm-5"  href="/address">Back</a>
+                        <a type="button" class="btn-site btn-invert me-3 me-sm-5" style="text-decoration: none;"  href="/address">Back</a>
                         <button type="button" class="btn-site" wire:click="storeUserInfo">Next</button>
                     </div>
                 </form>

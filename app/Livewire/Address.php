@@ -30,12 +30,15 @@ class Address extends BaseComponent
 
     public function saveAddress($address, $lat, $lng)
     {
+        $this->address = $address;
+        $this->latitude = $lat;
+        $this->longitude = $lng;
+
         $this->lead->update([
             'address' => $address,
             'latitude' => $lat,
             'longitude' => $lng
         ]);
-        $this->mount();
     }
 
     public function saveIsCommercial()

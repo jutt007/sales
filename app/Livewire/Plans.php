@@ -3,7 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Bug;
+use App\Models\Lead;
 use App\Models\Plan;
+use App\Models\PlanPrice;
 use Illuminate\Support\Collection;
 
 class Plans extends BaseComponent
@@ -18,11 +20,18 @@ class Plans extends BaseComponent
             return $this->redirect('/', true);
         }
 
-        $planType = $this->getPlanType();
-        $this->selectedPlan = Plan::query()->where('type', $planType)->first();
+        if ($this->lead->plan_id){
+            $this->selectedPlan = $this->lead->plan;
+        }else{
+            $planType = $this->getPlanType();
+            $this->selectedPlan = Plan::query()->where('type', $planType)->first();
+        }
         $this->plans = Plan::with('prices')->get();
 
         foreach ($this->plans as $plan) {
+            if ($this->lead->plan_price_id){
+                $this->selectedPriceIds[$this->lead->plan_id] = $this->lead->plan_price_id;
+            }
             $this->selectedPriceIds[$plan->id] = $plan->prices->get(0)?->id;
         }
     }
@@ -54,5 +63,21 @@ class Plans extends BaseComponent
         if (!$outdoor && $nonOutdoor) return 'General';
 
         return 'Hybrid';
+    }
+
+    public function selectPlan($planId)
+    {
+        $plan = Plan::query()->where('id',$planId)->first();
+        $planPrice = $plan->prices()->where('id', $this->selectedPriceIds[$planId])->first();
+        $this->lead->update([
+            'plan_id' => $plan->id,
+            'initial_fee' => $plan->initial_fee,
+            'discount' => $plan->discount,
+            'charges' => $planPrice->amount,
+            'plan_price_id' => $planPrice->id,
+            'charges_type' => PlanPrice::TYPE[$planPrice->billing_type]
+        ]);
+
+        return $this->redirect('/payment-info', true);
     }
 }

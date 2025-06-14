@@ -47,6 +47,6 @@ class ChooseBugs extends BaseComponent
         );
 
         Cookie::queue('guest_identifier', $this->identifier, 60 * 24 * 30);
-        return $this->redirect('/address', true);
+        return $this->redirect('/address');
     }
 }

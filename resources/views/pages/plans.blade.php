@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Address')
+@section('title', 'Select Plan')
 
 @section('content')
     @livewire('plans')

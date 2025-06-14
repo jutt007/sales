@@ -23,6 +23,11 @@ class Lead extends Model
         'phone',
         'preferred_contact_method',
         'plan_id',
+        'initial_fee',
+        'discount',
+        'charges',
+        'plan_price_id',
+        'charges_type',
         'appointment_date',
         'appointment_time',
         'customer_added',
@@ -40,5 +45,10 @@ class Lead extends Model
     public function plan() : BelongsTo
     {
         return $this->belongsTo(Plan::class);
+    }
+
+    public function getSelectedBugIdsAttribute()
+    {
+        return json_decode($this->selected_bugs ?? '[]');
     }
 }
