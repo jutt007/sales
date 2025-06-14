@@ -20,9 +20,9 @@ class UserInfo extends BaseComponent
 
         $this->discount = Plan::query()->max('discount');
 
-        $this->name = $this->lead->name;
-        $this->email = $this->lead->email;
-        $this->phone = $this->lead->phone;
+        $this->name = $this->lead->name ?? '';
+        $this->email = $this->lead->email ?? '';
+        $this->phone = $this->lead->phone ?? '';
         $this->preferredContact = $this->lead->preferred_contact_method;
     }
 
