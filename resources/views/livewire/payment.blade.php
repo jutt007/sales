@@ -89,7 +89,7 @@
 
                 <div class="btn-main">
                     <button type="button" class="btn-site btn-invert me-3 me-sm-5" href="/plans" wire:navigate>Back</button>
-                    <button type="button" class="btn-site" href="/appointment" wire:navigate>Next</button>
+                    <a style="text-decoration: none;" class="btn-site" href="/appointment">Next</a>
                 </div>
             </form>
 

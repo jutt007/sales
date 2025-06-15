@@ -23,7 +23,7 @@
                                             </svg>
                                         </span>
                                     </div>
-                                    <span>{{ $bug->name }}</span>
+                                    <span class="profile-label">{{ $bug->name }}</span>
                                 </div>
                             </label>
                         @endforeach

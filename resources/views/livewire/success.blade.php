@@ -11,6 +11,7 @@
                 <div class="location-form">
                     <div class="sign-agreement">
                         <h3>Check your phone for a text <br/> with a link</h3>
+                        <div id="countdown">00 : 00 : 30</div>
                         <p>Please review and sign the agreement.</p>
                         <h4>Once that is signed, your appointment will get <br/> booked!</h4>
                     </div>
@@ -32,5 +33,52 @@
             <span></span>
             <span class="active"></span>
         </div>
+        <script>
+
+            let seconds = 30;
+
+
+
+            const countdownEl = document.getElementById('countdown');
+
+
+
+            function formatTime(seconds) {
+
+                const hrs = String(Math.floor(seconds / 3600)).padStart(2, '0');
+
+                const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, '0');
+
+                const secs = String(seconds % 60).padStart(2, '0');
+
+                return `${hrs} : ${mins} : ${secs}`;
+
+            }
+
+
+
+            countdownEl.textContent = formatTime(seconds);
+
+
+
+            const timer = setInterval(() => {
+
+                seconds--;
+
+                countdownEl.textContent = formatTime(seconds);
+
+
+
+                if (seconds <= 0) {
+
+                    clearInterval(timer);
+
+                    countdownEl.textContent = "00 : 00 : 00";
+
+                }
+
+            }, 1000);
+
+        </script>
     </div>
 </div>

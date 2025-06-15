@@ -50,8 +50,8 @@
                                         </div>
 
                                         <div class="form-check form-check-inline custom-radio ms-2 ms-sm-5">
-                                            <input class="form-check-input" type="radio" name="commercial" wire:model="preferredContact" id="radioNo" value="Text">
-                                            <label class="form-check-label" for="radioNo">Text</label>
+                                            <input class="form-check-input" type="radio" name="commercial" wire:model="preferredContact" id="radioNo2" value="Text">
+                                            <label class="form-check-label" for="radioNo2">Text</label>
                                         </div>
 
 

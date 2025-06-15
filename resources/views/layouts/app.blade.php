@@ -18,6 +18,9 @@
         .slider-dot-main{
             flex-flow: row !important;
         }
+        .profile-card{
+            margin: auto;
+        }
     </style>
     @stack('styles')
     @livewireStyles
