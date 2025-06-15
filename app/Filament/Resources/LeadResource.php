@@ -6,6 +6,7 @@ use App\Filament\Resources\LeadResource\Pages;
 use App\Filament\Resources\LeadResource\RelationManagers;
 use App\Models\Bug;
 use App\Models\Lead;
+use Carbon\Carbon;
 use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\Section as InfoSection;
 use Filament\Forms\Form;
@@ -42,13 +43,11 @@ class LeadResource extends Resource
                             TextEntry::make('email')->label('Email'),
                             TextEntry::make('phone')->label('Phone'),
                             TextEntry::make('preferred_contact_method')->label('Preferred Contact'),
-                            TextEntry::make('selected_bugs')
-                                ->label('Bug Types')
+                            TextEntry::make('created_at')
+                                ->label('Created')
                                 ->formatStateUsing(function ($state) {
-                                    $bugIds = explode(', ', $state);
-                                    $types = \App\Models\Bug::query()->whereIn('id', $bugIds)->pluck('name');
-                                    return $types->isEmpty() ? 'None' : $types->join(', ');
-                                })->badge()->columnSpanFull(),
+                                    return Carbon::parse($state)->diffForHumans();
+                                })
                         ])->columnSpan(6),
 
                     InfoSection::make('Address')
@@ -57,6 +56,13 @@ class LeadResource extends Resource
                             TextEntry::make('is_commercial')
                                 ->label('Commercial')
                                 ->formatStateUsing(fn ($state) => $state ? 'Yes' : 'No'),
+                            TextEntry::make('selected_bugs')
+                                ->label('Bug Types')
+                                ->formatStateUsing(function ($state) {
+                                    $bugIds = explode(', ', $state);
+                                    $types = \App\Models\Bug::query()->whereIn('id', $bugIds)->pluck('name');
+                                    return $types->isEmpty() ? 'None' : $types->join(', ');
+                                })->badge()->columnSpanFull(),
                         ])->columnSpan(6),
 
                     InfoSection::make('Plan Info')
@@ -123,7 +129,11 @@ class LeadResource extends Resource
                         return implode(', ', $bugs);
                     })
                     ->badge(),
-            ])
+                Tables\Columns\TextColumn::make('created_at')->label('Created')->sortable()
+                    ->formatStateUsing(function ($state) {
+                        return Carbon::parse($state)->diffForHumans();
+                    })
+            ])->defaultSort('created_at', 'DESC')
             ->filters([
                 //
             ])
