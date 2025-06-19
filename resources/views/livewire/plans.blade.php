@@ -48,12 +48,13 @@
                                 <div class="price-mm-yy">
                                     @if($plan->prices->count() == 1)
                                         <span class="price m-auto">
-                                            ${{ $selectedPrice->amount }}
-                                            <small>/{{ \App\Models\PlanPrice::TYPE[$selectedPrice->billing_type] }}</small>
+                                            ${{ (int)$selectedPrice->amount }}
+                                            <small>/ {{ \App\Models\PlanPrice::PERIOD[$selectedPrice->billing_type] }}</small>
                                         </span>
                                     @else
                                         <span class="price">
-                                            ${{ $selectedPrice->amount }}
+                                            ${{ (int)$selectedPrice->amount }}
+                                            <small>/ {{ \App\Models\PlanPrice::PERIOD[$selectedPrice->billing_type] }}</small>
                                         </span>
                                         <div class="d-inline-flex align-items-center">
                                             <span class="switch-label">{{ \App\Models\PlanPrice::TYPE[$price1->billing_type] }}</span>

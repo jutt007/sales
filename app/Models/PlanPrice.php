@@ -16,6 +16,20 @@ class PlanPrice extends Model
         'per_service' => 'Service',
     ];
 
+    const PERIOD = [
+        'monthly' => 'Mo',
+        'quarterly' => 'Mo',
+        'bi_monthly' => 'Mo',
+        'per_service' => 'Service',
+    ];
+
+    const CHARGES = [
+        'Monthly' => 'Monthly',
+        'Quarterly' => 'Monthly',
+        'Bi-Monthly' => 'Monthly',
+        'Service' => 'Service',
+    ];
+
     public function plan() : BelongsTo
     {
         return $this->belongsTo(Plan::class);

@@ -42,7 +42,27 @@ class LeadResource extends Resource
                             TextEntry::make('name')->label('Full Name'),
                             TextEntry::make('email')->label('Email'),
                             TextEntry::make('phone')->label('Phone'),
-                            TextEntry::make('preferred_contact_method')->label('Preferred Contact'),
+                            TextEntry::make('preferred_contact_method')
+                                ->label('Preferred Contact')
+                                ->formatStateUsing(function (?string $state) {
+                                    $methods = is_array($state) ? $state : json_decode($state, true);
+
+                                    if (!is_array($methods)) {
+                                        return '';
+                                    }
+
+                                    return collect($methods)->map(function ($method) {
+                                        $color = match ($method) {
+                                            'Call' => 'bg-blue-100 text-blue-800',
+                                            'Email' => 'bg-green-100 text-green-800',
+                                            'Text' => 'bg-yellow-100 text-yellow-800',
+                                            default => 'bg-gray-100 text-gray-800',
+                                        };
+
+                                        return "<span class='inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold $color mr-1'>$method</span>";
+                                    })->implode('');
+                                })
+                                ->html(),
                             TextEntry::make('created_at')
                                 ->label('Created')
                                 ->formatStateUsing(function ($state) {
@@ -69,15 +89,15 @@ class LeadResource extends Resource
                         ->columns(3)
                         ->schema([
                             TextEntry::make('plan.name')->label('Plan Name'),
-                            TextEntry::make('charges_type')->label('Type'),
+                            TextEntry::make('charges_type')->label('Agreement Length'),
                             TextEntry::make('initial_fee')
                                 ->label('Initial Fee')
                                 ->formatStateUsing(fn ($state) => '$' . number_format($state, 2)),
                             TextEntry::make('discount')
-                                ->label('Discount')
+                                ->label('Initial Discount')
                                 ->formatStateUsing(fn ($state) => '$' . number_format($state, 2)),
                             TextEntry::make('charges')
-                                ->label('Service Charges')
+                                ->label('Charges(Monthly/Service)')
                                 ->formatStateUsing(fn ($state) => '$' . number_format($state, 2)),
                             TextEntry::make('charges')
                                 ->label('Final Price')

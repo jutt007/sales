@@ -23,11 +23,11 @@
                                         <span style="color: #01BDA5;"><strong>-{{ '$'. number_format($lead->discount, 2) }}</strong></span>
                                     </div>
                                     <div class="checkout-detail">
-                                        <span>Contract</span>
+                                        <span>Agreement Length</span>
                                         <span>{{ $lead->charges_type }}</span>
                                     </div>
                                     <div class="checkout-detail">
-                                        <span>Service Charges</span>
+                                        <span>{{ \App\Models\PlanPrice::CHARGES[$lead->charges_type] }} Charges</span>
                                         <span>{{ '$'. number_format($lead->charges, 2) }}</span>
                                     </div>
                                     <div class="checkout-detail">

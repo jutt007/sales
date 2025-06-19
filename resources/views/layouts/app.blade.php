@@ -24,6 +24,11 @@
         .profile-card{
             margin: auto;
         }
+        .error{
+            font-size: 14px;
+            color: red;
+            text-align: left;
+        }
     </style>
     @stack('styles')
     @livewireStyles

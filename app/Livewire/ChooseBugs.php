@@ -15,7 +15,7 @@ class ChooseBugs extends BaseComponent
 
     public function mount()
     {
-        $this->bugs = Bug::query()->get();
+        $this->bugs = Bug::query()->where('status', true)->get();
         $this->loadLead(false);
         if ($this->lead) {
             $this->selectedBugs = $this->lead->selected_bugs ?? [];

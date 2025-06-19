@@ -24,22 +24,31 @@
                                     <div class="form-floating mb-4">
                                         <input type="text" class="form-control" id="name" wire:model="name" placeholder="Full Name">
                                         <label for="name">Full Name</label>
+                                        @error('name')
+                                        <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-floating mb-4">
-                                        <input type="phone" class="form-control" id="phone" wire:model="phone" placeholder="Phone">
+                                        <input type="tel" class="form-control" id="phone" wire:model="phone" placeholder="Phone">
                                         <label for="phone">Phone</label>
+                                        @error('phone')
+                                        <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="form-floating mb-4">
-                                        <input type="text" class="form-control" id="Email" wire:model="email" placeholder="Email">
+                                        <input type="email" class="form-control" id="Email" wire:model="email" placeholder="Email">
                                         <label for="Email">Email</label>
+                                        @error('email')
+                                        <div class="error">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="commercial-question">
                                         <label class="form-label d-block commercial-head">Preferred method of contact?</label>
 
-                                        <div class="form-check form-check-inline custom-radio me-2 me-sm-5">
+                                        {{--<div class="form-check form-check-inline custom-radio me-2 me-sm-5">
                                             <input class="form-check-input" type="radio" name="commercial" wire:model="preferredContact" id="radioYes" value="Call" checked>
                                             <label class="form-check-label" for="radioYes">Call</label>
                                         </div>
@@ -52,8 +61,21 @@
                                         <div class="form-check form-check-inline custom-radio ms-2 ms-sm-5">
                                             <input class="form-check-input" type="radio" name="commercial" wire:model="preferredContact" id="radioNo2" value="Text">
                                             <label class="form-check-label" for="radioNo2">Text</label>
-                                        </div>
+                                        </div>--}}
+                                        @foreach (['Call', 'Email', 'Text'] as $method)
+                                            <div class="form-check form-check-inline custom-radio">
+                                                <input type="checkbox"
+                                                       id="contact{{ $method }}"
+                                                       class="form-check-input"
+                                                       value="{{ $method }}"
+                                                       wire:model="preferredContact">
+                                                <label for="contact{{ $method }}" class="form-check-label">{{ $method }}</label>
+                                            </div>
+                                        @endforeach
 
+                                        @error('preferredContact')
+                                        <div class="error">{{ $message }}</div>
+                                        @enderror
 
                                     </div>
                                 </div>

@@ -23,9 +23,10 @@ class BugResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required()->maxLength(255),
-                Forms\Components\Toggle::make('status')->inline(false)->label('Is Outdoor'),
+                Forms\Components\Toggle::make('status')->inline(false)->label('Status'),
+                Forms\Components\Toggle::make('is_outdoor')->inline(false)->label('Is Outdoor'),
                 Forms\Components\FileUpload::make('image')->image()->imageEditor()
-            ]);
+            ])->columns(3);
     }
 
     public static function table(Table $table): Table
@@ -34,7 +35,8 @@ class BugResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-                Tables\Columns\ToggleColumn::make('status')->sortable()->label('Is Outdoor'),
+                Tables\Columns\ToggleColumn::make('status')->sortable()->label('Status'),
+                Tables\Columns\ToggleColumn::make('is_outdoor')->sortable()->label('Is Outdoor'),
                 Tables\Columns\ImageColumn::make('image')->square(),
                 Tables\Columns\TextColumn::make('created_at')->date('d-m-Y')->sortable()
             ])
